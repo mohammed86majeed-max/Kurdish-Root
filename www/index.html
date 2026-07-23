@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#12262B" />
+<title>پێکهێنەری کردار — صرف افعال سورانی</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#12262B; --surface:#1B383F; --surface2:#23454D;
+  --gold:#CBA135; --rust:#B5533C; --cream:#F3ECDD; --muted:#8FAAB0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--cream);font-family:'Vazirmatn',sans-serif;}
+.kurdish{font-family:'Noto Naskh Arabic',serif;}
+.kilim{height:14px;background:
+  repeating-linear-gradient(135deg,var(--gold) 0 7px,transparent 7px 14px),
+  repeating-linear-gradient(45deg,var(--rust) 0 7px,transparent 7px 14px);
+  background-size:14px 14px;opacity:.85;}
+.wrap{max-width:480px;margin:0 auto;padding:18px 16px 40px;}
+h1{font-size:26px;font-weight:700;margin:6px 0 2px;color:var(--gold);}
+.subtitle{font-size:13px;color:var(--muted);margin:0 0 18px;}
+.card{background:var(--surface);border:1px solid var(--surface2);border-radius:14px;padding:12px 14px;margin-bottom:14px;}
+label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px;}
+.field{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--surface2);
+  background:var(--surface);color:var(--cream);font-family:'Noto Naskh Arabic',serif;font-size:18px;}
+select.field{font-family:'Vazirmatn',sans-serif;font-size:15px;}
+.row{display:flex;gap:8px;margin-bottom:12px;}
+.col{flex:1;}
+.toggle-row{display:flex;gap:8px;}
+.toggle-btn{flex:1;padding:9px;border-radius:10px;border:1px solid var(--surface2);
+  background:var(--surface);color:var(--muted);font-size:14px;}
+.toggle-btn.active{background:var(--rust);color:var(--cream);border-color:var(--rust);}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px;}
+.tab-btn{font-family:'Noto Naskh Arabic',serif;font-size:15px;padding:10px 14px;border-radius:10px;
+  border:1px solid var(--surface2);background:var(--surface);color:var(--muted);white-space:nowrap;flex:0 0 auto;}
+.tab-btn.active{background:var(--gold);color:#1B383F;border-color:var(--gold);font-weight:700;}
+.tsub{font-size:12px;color:var(--muted);margin-bottom:10px;}
+.pcard{display:flex;flex-direction:column;gap:6px;}
+.prow{display:flex;justify-content:space-between;align-items:center;}
+.pronoun{color:var(--gold);font-size:16px;}
+.pnote{font-size:11px;color:var(--muted);}
+.words{display:flex;justify-content:space-between;margin-top:6px;}
+.word-pos{font-family:'Noto Naskh Arabic',serif;font-size:20px;color:var(--cream);}
+.word-neg{font-family:'Noto Naskh Arabic',serif;font-size:20px;color:#E3A08C;}
+.note{font-size:12px;color:var(--muted);line-height:1.9;}
+</style>
+</head>
+<body>
+<div class="kilim"></div>
+<div class="wrap">
+  <h1 class="kurdish">پێکهێنەری کردار</h1>
+  <p class="subtitle">صرف افعال کردی سورانی — مصدر را وارد کنید تا همه‌ی شکل‌هایش را ببینید</p>
+
+  <div class="card">
+    <label>فعل‌های پرکاربرد (بی‌قاعده + باقاعده)</label>
+    <select id="verbPicker" class="field">
+      <option value="">— هرکدام را انتخاب کنید —</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <label>یان مصدر خۆت بنووسە (بۆ نموونە: نووسین)</label>
+    <input id="infinitive" class="field" dir="rtl" value="نووسین" style="margin-bottom:12px" />
+    <div class="row">
+      <div class="col">
+        <label>ڕەگی ئێستا</label>
+        <input id="presentStem" class="field" dir="rtl" value="نووس" />
+      </div>
+      <div class="col">
+        <label>ڕەگی ڕابردوو</label>
+        <input id="pastStem" class="field" dir="rtl" value="نووسی" />
+      </div>
+    </div>
+    <div class="toggle-row">
+      <button class="toggle-btn active" id="btnTrans">گوزەرا (متعدی)</button>
+      <button class="toggle-btn" id="btnIntrans">ناگوزەرا (لازم)</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <p class="tsub" id="tsub"></p>
+  <div id="rows"></div>
+
+  <div class="kilim" style="margin-top:18px;margin-bottom:12px"></div>
+  <p class="note">
+    تذکر: این ابزار بر پایه‌ی قواعد منظم صرف سورانی کار می‌کند. برای فعل‌های بی‌قاعده که در فهرست بالا نیستند،
+    ریشه‌ی حال و گذشته را دستی وارد کنید. شکل تصریفیِ گذرا در زمان گذشته، ساخت ارگتیو کردی را به‌صورت ساده‌شده روی
+    خود فعل نشان می‌دهد.
+  </p>
+</div>
+
+<script>
+const PERSONS = [
+  {pronoun:"من", note:"یەکەم تاک"},
+  {pronoun:"تۆ", note:"دووەم تاک"},
+  {pronoun:"ئەو", note:"سێیەم تاک"},
+  {pronoun:"ئێمە", note:"یەکەم کۆ"},
+  {pronoun:"ئێوە", note:"دووەم کۆ"},
+  {pronoun:"ئەوان", note:"سێیەم کۆ"},
+];
+const IMP_PERSONS = [{pronoun:"تۆ",note:"تاک"},{pronoun:"ئێوە",note:"کۆ"}];
+
+const PRESENT_ENDINGS = ["م","یت","ێت","ین","ن","ن"];
+const PAST_INTRANS_ENDINGS = ["م","یت","","ین","ن","ن"];
+const PAST_TRANS_CLITICS = ["م","ت","ی","مان","تان","یان"];
+
+const VERB_LIST = [
+  {infinitive:"نووسین",presentStem:"نووس",pastStem:"نووسی",transitive:true,fa:"نوشتن"},
+  {infinitive:"خوێندن",presentStem:"خوێن",pastStem:"خوێند",transitive:true,fa:"خواندن"},
+  {infinitive:"کردن",presentStem:"کە",pastStem:"کرد",transitive:true,fa:"انجام‌دادن"},
+  {infinitive:"هاتن",presentStem:"هێ",pastStem:"هات",transitive:false,fa:"آمدن"},
+  {infinitive:"چوون",presentStem:"چۆ",pastStem:"چوو",transitive:false,fa:"رفتن"},
+  {infinitive:"خواردن",presentStem:"خۆ",pastStem:"خوارد",transitive:true,fa:"خوردن"},
+  {infinitive:"بینین",presentStem:"بین",pastStem:"بینی",transitive:true,fa:"دیدن"},
+  {infinitive:"وتن",presentStem:"ڵێ",pastStem:"وت",transitive:true,fa:"گفتن"},
+  {infinitive:"دان",presentStem:"دە",pastStem:"دا",transitive:true,fa:"دادن"},
+  {infinitive:"بردن",presentStem:"بە",pastStem:"برد",transitive:true,fa:"بردن"},
+  {infinitive:"کەوتن",presentStem:"کەو",pastStem:"کەوت",transitive:false,fa:"افتادن"},
+  {infinitive:"زانین",presentStem:"زان",pastStem:"زانی",transitive:true,fa:"دانستن"},
+  {infinitive:"خەوتن",presentStem:"خەو",pastStem:"خەوت",transitive:false,fa:"خوابیدن"},
+  {infinitive:"وەستان",presentStem:"وەست",pastStem:"وەستا",transitive:false,fa:"ایستادن"},
+  {infinitive:"مان",presentStem:"مێن",pastStem:"ما",transitive:false,fa:"ماندن"},
+  {infinitive:"ژیان",presentStem:"ژی",pastStem:"ژیا",transitive:false,fa:"زندگی‌کردن"},
+];
+
+const TABS = [
+  {id:"present",label:"ئێستا / ئایندە",sub:"زمانی حال / آینده"},
+  {id:"pastSimple",label:"ڕابردووی سادە",sub:"ماضی ساده"},
+  {id:"pastCont",label:"ڕابردووی بەردەوام",sub:"ماضی استمراری"},
+  {id:"subj",label:"ئارەزوومەندی",sub:"التزامی / ساختاری با «بی-»"},
+  {id:"imperative",label:"فەرمانی",sub:"امری"},
+];
+
+let state = { transitive:true, tab:"present", touched:false };
+
+function buildForms(prefix, stem, endings){ return endings.map(e => prefix+stem+e); }
+
+function conjugate(presentStem, pastStem, transitive){
+  const pastEndings = transitive ? PAST_TRANS_CLITICS : PAST_INTRANS_ENDINGS;
+  return {
+    present:{pos:buildForms("دە",presentStem,PRESENT_ENDINGS), neg:buildForms("نا",presentStem,PRESENT_ENDINGS), full:true},
+    pastSimple:{pos:buildForms("",pastStem,pastEndings), neg:buildForms("نە",pastStem,pastEndings), full:true},
+    pastCont:{pos:buildForms("دە",pastStem,pastEndings), neg:buildForms("نە",pastStem,pastEndings), full:true},
+    subj:{pos:buildForms("بـ",presentStem,PRESENT_ENDINGS), neg:buildForms("نە",presentStem,PRESENT_ENDINGS), full:true},
+    imperative:{pos:[`بـ${presentStem}ە`,`بـ${presentStem}ن`], neg:[`مە${presentStem}ە`,`مە${presentStem}ن`], full:false},
+  };
+}
+
+function guessPastStem(inf){ if(!inf) return ""; return inf.endsWith("ن") ? inf.slice(0,-1) : inf; }
+function guessPresentStem(inf){
+  if(!inf) return "";
+  if(inf.endsWith("ین")) return inf.slice(0,-2);
+  if(inf.endsWith("ن")) return inf.slice(0,-1);
+  return inf;
+}
+
+const $ = id => document.getElementById(id);
+
+function render(){
+  const presentStem = $("presentStem").value;
+  const pastStem = $("pastStem").value;
+  const tenses = conjugate(presentStem, pastStem, state.transitive);
+  const active = tenses[state.tab];
+  const meta = TABS.find(t=>t.id===state.tab);
+
+  $("tsub").textContent = meta.sub;
+
+  const rows = active.full ? PERSONS : IMP_PERSONS;
+  $("rows").innerHTML = rows.map((p,i)=>`
+    <div class="card pcard">
+      <div class="prow">
+        <span class="pronoun kurdish">${p.pronoun}</span>
+        <span class="pnote">${p.note}</span>
+      </div>
+      <div class="words">
+        <span class="word-pos">${active.pos[i]}</span>
+        <span class="word-neg">${active.neg[i]}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderTabs(){
+  $("tabs").innerHTML = TABS.map(t=>`<button class="tab-btn ${t.id===state.tab?'active':''}" data-tab="${t.id}">${t.label}</button>`).join("");
+  document.querySelectorAll(".tab-btn").forEach(btn=>{
+    btn.onclick = ()=>{ state.tab = btn.dataset.tab; renderTabs(); render(); };
+  });
+}
+
+function renderVerbPicker(){
+  $("verbPicker").innerHTML += VERB_LIST.map(v=>`<option value="${v.infinitive}">${v.infinitive} — ${v.fa}</option>`).join("");
+  $("verbPicker").onchange = (e)=>{
+    const verb = VERB_LIST.find(v=>v.infinitive===e.target.value);
+    if(!verb) return;
+    $("infinitive").value = verb.infinitive;
+    $("presentStem").value = verb.presentStem;
+    $("pastStem").value = verb.pastStem;
+    state.transitive = verb.transitive;
+    state.touched = true;
+    updateToggleButtons();
+    render();
+  };
+}
+
+function updateToggleButtons(){
+  $("btnTrans").classList.toggle("active", state.transitive);
+  $("btnIntrans").classList.toggle("active", !state.transitive);
+}
+
+$("infinitive").addEventListener("input", (e)=>{
+  if(!state.touched){
+    $("presentStem").value = guessPresentStem(e.target.value);
+    $("pastStem").value = guessPastStem(e.target.value);
+  }
+  render();
+});
+$("presentStem").addEventListener("input", ()=>{ state.touched=true; render(); });
+$("pastStem").addEventListener("input", ()=>{ state.touched=true; render(); });
+$("btnTrans").addEventListener("click", ()=>{ state.transitive=true; updateToggleButtons(); render(); });
+$("btnIntrans").addEventListener("click", ()=>{ state.transitive=false; updateToggleButtons(); render(); });
+
+renderVerbPicker();
+renderTabs();
+render();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
