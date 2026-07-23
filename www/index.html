@@ -48,6 +48,10 @@ select.field{font-family:'Vazirmatn',sans-serif;font-size:15px;}
 .word-pos{font-family:'Noto Naskh Arabic',serif;font-size:20px;color:var(--cream);}
 .word-neg{font-family:'Noto Naskh Arabic',serif;font-size:20px;color:#E3A08C;}
 .note{font-size:12px;color:var(--muted);line-height:1.9;}
+.myverb-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--surface2);}
+.myverb-row:last-child{border-bottom:none;}
+.myverb-name{font-family:'Noto Naskh Arabic',serif;font-size:16px;color:var(--cream);}
+.myverb-del{background:none;border:1px solid var(--rust);color:var(--rust);border-radius:8px;padding:4px 10px;font-size:12px;}
 </style>
 </head>
 <body>
@@ -80,6 +84,15 @@ select.field{font-family:'Vazirmatn',sans-serif;font-size:15px;}
       <button class="toggle-btn active" id="btnTrans">گوزەرا (متعدی)</button>
       <button class="toggle-btn" id="btnIntrans">ناگوزەرا (لازم)</button>
     </div>
+    <button id="btnSaveVerb" class="field" style="margin-top:12px;background:var(--gold);color:#1B383F;font-family:'Vazirmatn',sans-serif;font-weight:700;border:none;cursor:pointer;">
+      + هەمیشە لە لیستەکەم زیادی بکە
+    </button>
+    <p id="saveMsg" style="font-size:12px;color:var(--gold);margin:8px 0 0;display:none;">زیاد کرا ✓ لە لیستی خواردەوە بگەڕێ</p>
+  </div>
+
+  <div class="card" id="myVerbsCard" style="display:none;">
+    <label>فعلە زیادکراوەکانی خۆم</label>
+    <div id="myVerbsList"></div>
   </div>
 
   <div class="tabs" id="tabs"></div>
@@ -126,6 +139,38 @@ const VERB_LIST = [
   {infinitive:"وەستان",presentStem:"وەست",pastStem:"وەستا",transitive:false,fa:"ایستادن"},
   {infinitive:"مان",presentStem:"مێن",pastStem:"ما",transitive:false,fa:"ماندن"},
   {infinitive:"ژیان",presentStem:"ژی",pastStem:"ژیا",transitive:false,fa:"زندگی‌کردن"},
+  {infinitive:"کوشتن",presentStem:"کوژ",pastStem:"کوشت",transitive:true,fa:"کشتن"},
+  {infinitive:"فرۆشتن",presentStem:"فرۆش",pastStem:"فرۆشت",transitive:true,fa:"فروختن"},
+  {infinitive:"کڕین",presentStem:"کڕ",pastStem:"کڕی",transitive:true,fa:"خریدن"},
+  {infinitive:"گەڕان",presentStem:"گەڕێ",pastStem:"گەڕا",transitive:false,fa:"گشتن/برگشتن"},
+  {infinitive:"ڕۆیشتن",presentStem:"ڕۆ",pastStem:"ڕۆیشت",transitive:false,fa:"رفتن (مترادف)"},
+  {infinitive:"هەڵسان",presentStem:"هەڵسێ",pastStem:"هەڵسا",transitive:false,fa:"برخاستن"},
+  {infinitive:"دانیشتن",presentStem:"دانیش",pastStem:"دانیشت",transitive:false,fa:"نشستن"},
+  {infinitive:"وەرگرتن",presentStem:"وەرگر",pastStem:"وەرگرت",transitive:true,fa:"دریافت‌کردن"},
+  {infinitive:"گەیشتن",presentStem:"گا",pastStem:"گەیشت",transitive:false,fa:"رسیدن"},
+  {infinitive:"برین",presentStem:"بڕ",pastStem:"بری",transitive:true,fa:"بریدن"},
+  {infinitive:"شکاندن",presentStem:"شکێن",pastStem:"شکاند",transitive:true,fa:"شکستن (چیزی)"},
+  {infinitive:"شکان",presentStem:"شکێ",pastStem:"شکا",transitive:false,fa:"شکستن (خودش)"},
+  {infinitive:"پرسین",presentStem:"پرس",pastStem:"پرسی",transitive:true,fa:"پرسیدن"},
+  {infinitive:"خۆشویستن",presentStem:"خۆشوێ",pastStem:"خۆشویست",transitive:true,fa:"دوست‌داشتن"},
+  {infinitive:"ترسان",presentStem:"ترس",pastStem:"ترسا",transitive:false,fa:"ترسیدن"},
+  {infinitive:"پێکەنین",presentStem:"پێکەن",pastStem:"پێکەنی",transitive:false,fa:"خندیدن"},
+  {infinitive:"گریان",presentStem:"گری",pastStem:"گریا",transitive:false,fa:"گریه‌کردن"},
+  {infinitive:"مردن",presentStem:"مر",pastStem:"مرد",transitive:false,fa:"مردن"},
+  {infinitive:"بوون",presentStem:"ب",pastStem:"بوو",transitive:false,fa:"بودن/شدن"},
+  {infinitive:"تێگەیشتن",presentStem:"تێگا",pastStem:"تێگەیشت",transitive:false,fa:"فهمیدن"},
+  {infinitive:"خستن",presentStem:"خە",pastStem:"خست",transitive:true,fa:"انداختن"},
+  {infinitive:"هێنان",presentStem:"هێن",pastStem:"هێنا",transitive:true,fa:"آوردن"},
+  {infinitive:"ڕاگرتن",presentStem:"ڕاگر",pastStem:"ڕاگرت",transitive:true,fa:"نگه‌داشتن"},
+  {infinitive:"سووتان",presentStem:"سووت",pastStem:"سووتا",transitive:false,fa:"سوختن (خودش)"},
+  {infinitive:"سووتاندن",presentStem:"سووتێن",pastStem:"سووتاند",transitive:true,fa:"سوزاندن"},
+  {infinitive:"شۆردن",presentStem:"شۆ",pastStem:"شۆرد",transitive:true,fa:"شستن"},
+  {infinitive:"وەستاندن",presentStem:"وەستێن",pastStem:"وەستاند",transitive:true,fa:"متوقف‌کردن"},
+  {infinitive:"ڕاکردن",presentStem:"ڕاکە",pastStem:"ڕاکرد",transitive:false,fa:"فرار کردن"},
+  {infinitive:"بەخشین",presentStem:"بەخش",pastStem:"بەخشی",transitive:true,fa:"بخشیدن"},
+  {infinitive:"لێدان",presentStem:"لێدە",pastStem:"لێدا",transitive:true,fa:"زدن"},
+  {infinitive:"گرتن",presentStem:"گر",pastStem:"گرت",transitive:true,fa:"گرفتن"},
+  {infinitive:"تێپەڕین",presentStem:"تێپەڕ",pastStem:"تێپەڕی",transitive:false,fa:"گذشتن (از جایی)"},
 ];
 
 const TABS = [
@@ -137,6 +182,20 @@ const TABS = [
 ];
 
 let state = { transitive:true, tab:"present", touched:false };
+
+const STORAGE_KEY = "kurdishConjugator.myVerbs";
+
+function loadMyVerbs(){
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveMyVerbs(list){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
+let myVerbs = loadMyVerbs();
+
+function allVerbs(){ return VERB_LIST.concat(myVerbs); }
+
 
 function buildForms(prefix, stem, endings){ return endings.map(e => prefix+stem+e); }
 
@@ -193,9 +252,22 @@ function renderTabs(){
 }
 
 function renderVerbPicker(){
-  $("verbPicker").innerHTML += VERB_LIST.map(v=>`<option value="${v.infinitive}">${v.infinitive} — ${v.fa}</option>`).join("");
-  $("verbPicker").onchange = (e)=>{
-    const verb = VERB_LIST.find(v=>v.infinitive===e.target.value);
+  const picker = $("verbPicker");
+  picker.innerHTML = `<option value="">— هرکدام را انتخاب کنید —</option>`;
+  const builtinGroup = document.createElement("optgroup");
+  builtinGroup.label = "فعلە بنەڕەتییەکان";
+  builtinGroup.innerHTML = VERB_LIST.map(v=>`<option value="${v.infinitive}">${v.infinitive} — ${v.fa}</option>`).join("");
+  picker.appendChild(builtinGroup);
+
+  if(myVerbs.length){
+    const myGroup = document.createElement("optgroup");
+    myGroup.label = "فعلە زیادکراوەکانی من";
+    myGroup.innerHTML = myVerbs.map(v=>`<option value="${v.infinitive}">${v.infinitive}${v.fa ? " — "+v.fa : ""}</option>`).join("");
+    picker.appendChild(myGroup);
+  }
+
+  picker.onchange = (e)=>{
+    const verb = allVerbs().find(v=>v.infinitive===e.target.value);
     if(!verb) return;
     $("infinitive").value = verb.infinitive;
     $("presentStem").value = verb.presentStem;
@@ -205,6 +277,28 @@ function renderVerbPicker(){
     updateToggleButtons();
     render();
   };
+}
+
+function renderMyVerbsList(){
+  const card = $("myVerbsCard");
+  const list = $("myVerbsList");
+  if(!myVerbs.length){ card.style.display = "none"; return; }
+  card.style.display = "block";
+  list.innerHTML = myVerbs.map((v,i)=>`
+    <div class="myverb-row">
+      <span class="myverb-name">${v.infinitive}${v.fa ? " — "+v.fa : ""}</span>
+      <button class="myverb-del" data-i="${i}">سڕینەوە</button>
+    </div>
+  `).join("");
+  list.querySelectorAll(".myverb-del").forEach(btn=>{
+    btn.onclick = ()=>{
+      const i = parseInt(btn.dataset.i, 10);
+      myVerbs.splice(i, 1);
+      saveMyVerbs(myVerbs);
+      renderVerbPicker();
+      renderMyVerbsList();
+    };
+  });
 }
 
 function updateToggleButtons(){
@@ -224,7 +318,31 @@ $("pastStem").addEventListener("input", ()=>{ state.touched=true; render(); });
 $("btnTrans").addEventListener("click", ()=>{ state.transitive=true; updateToggleButtons(); render(); });
 $("btnIntrans").addEventListener("click", ()=>{ state.transitive=false; updateToggleButtons(); render(); });
 
+$("btnSaveVerb").addEventListener("click", ()=>{
+  const infinitive = $("infinitive").value.trim();
+  const presentStem = $("presentStem").value.trim();
+  const pastStem = $("pastStem").value.trim();
+  if(!infinitive || !presentStem || !pastStem){ return; }
+  const exists = allVerbs().some(v=>v.infinitive===infinitive);
+  if(exists){
+    const msg = $("saveMsg");
+    msg.textContent = "ئەم فعلە پێشتر لە لیستدایە";
+    msg.style.display = "block";
+    setTimeout(()=>{ msg.style.display="none"; }, 2500);
+    return;
+  }
+  myVerbs.push({ infinitive, presentStem, pastStem, transitive: state.transitive, fa: "" });
+  saveMyVerbs(myVerbs);
+  renderVerbPicker();
+  renderMyVerbsList();
+  const msg = $("saveMsg");
+  msg.textContent = "زیاد کرا ✓ لە لیستی خواردەوە بگەڕێ";
+  msg.style.display = "block";
+  setTimeout(()=>{ msg.style.display="none"; }, 2500);
+});
+
 renderVerbPicker();
+renderMyVerbsList();
 renderTabs();
 render();
 
