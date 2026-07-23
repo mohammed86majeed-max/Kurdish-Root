@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#12262B" />
-<title>پێکهێنەری کردار — صرف افعال سورانی</title>
+<title>پێکهێنەری کردار</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icons/icon-192.png" />
 <link rel="apple-touch-icon" href="icons/icon-192.png" />
@@ -22,88 +22,85 @@ body{margin:0;background:var(--bg);color:var(--cream);font-family:'Vazirmatn',sa
   repeating-linear-gradient(45deg,var(--rust) 0 7px,transparent 7px 14px);
   background-size:14px 14px;opacity:.85;}
 .wrap{max-width:480px;margin:0 auto;padding:18px 16px 40px;}
-h1{font-size:26px;font-weight:700;margin:6px 0 2px;color:var(--gold);}
-.subtitle{font-size:13px;color:var(--muted);margin:0 0 18px;}
+h1{font-size:26px;font-weight:700;margin:6px 0 2px;color:var(--gold);font-family:'Noto Naskh Arabic',serif;}
+.subtitle{font-size:13px;color:var(--muted);margin:0 0 18px;font-family:'Noto Naskh Arabic',serif;}
 .card{background:var(--surface);border:1px solid var(--surface2);border-radius:14px;padding:12px 14px;margin-bottom:14px;}
-label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px;}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-family:'Noto Naskh Arabic',serif;}
 .field{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--surface2);
   background:var(--surface);color:var(--cream);font-family:'Noto Naskh Arabic',serif;font-size:18px;}
-select.field{font-family:'Vazirmatn',sans-serif;font-size:15px;}
+select.field{font-size:16px;}
 .row{display:flex;gap:8px;margin-bottom:12px;}
 .col{flex:1;}
 .toggle-row{display:flex;gap:8px;}
 .toggle-btn{flex:1;padding:9px;border-radius:10px;border:1px solid var(--surface2);
-  background:var(--surface);color:var(--muted);font-size:14px;}
+  background:var(--surface);color:var(--muted);font-size:15px;font-family:'Noto Naskh Arabic',serif;}
 .toggle-btn.active{background:var(--rust);color:var(--cream);border-color:var(--rust);}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px;}
 .tab-btn{font-family:'Noto Naskh Arabic',serif;font-size:15px;padding:10px 14px;border-radius:10px;
   border:1px solid var(--surface2);background:var(--surface);color:var(--muted);white-space:nowrap;flex:0 0 auto;}
 .tab-btn.active{background:var(--gold);color:#1B383F;border-color:var(--gold);font-weight:700;}
-.tsub{font-size:12px;color:var(--muted);margin-bottom:10px;}
 .pcard{display:flex;flex-direction:column;gap:6px;}
 .prow{display:flex;justify-content:space-between;align-items:center;}
 .pronoun{color:var(--gold);font-size:16px;}
-.pnote{font-size:11px;color:var(--muted);}
+.pnote{font-size:11px;color:var(--muted);font-family:'Noto Naskh Arabic',serif;}
 .words{display:flex;justify-content:space-between;margin-top:6px;}
 .word-pos{font-family:'Noto Naskh Arabic',serif;font-size:20px;color:var(--cream);}
 .word-neg{font-family:'Noto Naskh Arabic',serif;font-size:20px;color:#E3A08C;}
-.note{font-size:12px;color:var(--muted);line-height:1.9;}
-.myverb-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--surface2);}
-.myverb-row:last-child{border-bottom:none;}
-.myverb-name{font-family:'Noto Naskh Arabic',serif;font-size:16px;color:var(--cream);}
-.myverb-del{background:none;border:1px solid var(--rust);color:var(--rust);border-radius:8px;padding:4px 10px;font-size:12px;}
+.note{font-size:13px;color:var(--muted);line-height:2;font-family:'Noto Naskh Arabic',serif;}
+.actionbtn{width:100%;padding:11px;border-radius:10px;border:none;font-family:'Noto Naskh Arabic',serif;
+  font-size:16px;font-weight:700;cursor:pointer;margin-top:10px;}
+.btn-save{background:var(--gold);color:#1B383F;}
+.btn-del{background:transparent;border:1px solid var(--rust);color:var(--rust);}
+.msg{font-size:13px;color:var(--gold);margin:8px 0 0;display:none;font-family:'Noto Naskh Arabic',serif;}
 </style>
 </head>
 <body>
 <div class="kilim"></div>
 <div class="wrap">
-  <h1 class="kurdish">پێکهێنەری کردار</h1>
-  <p class="subtitle">صرف افعال کردی سورانی — مصدر را وارد کنید تا همه‌ی شکل‌هایش را ببینید</p>
+  <h1>پێکهێنەری کردار</h1>
+  <p class="subtitle">مەسدەرێک هەڵبژێرە یان بنووسە، هەموو شێوەکانی ببینە</p>
 
   <div class="card">
-    <label>فعل‌های پرکاربرد (بی‌قاعده + باقاعده)</label>
+    <label>لیستی کردارەکان</label>
     <select id="verbPicker" class="field">
-      <option value="">— هرکدام را انتخاب کنید —</option>
+      <option value="">— کردارێک هەڵبژێرە —</option>
     </select>
   </div>
 
   <div class="card">
-    <label>یان مصدر خۆت بنووسە (بۆ نموونە: نووسین)</label>
+    <label>یان مەسدەرێکی نوێ بنووسە (نموونە: نووسین)</label>
     <input id="infinitive" class="field" dir="rtl" value="نووسین" style="margin-bottom:12px" />
-    <div class="row">
-      <div class="col">
-        <label>ڕەگی ئێستا</label>
-        <input id="presentStem" class="field" dir="rtl" value="نووس" />
-      </div>
-      <div class="col">
-        <label>ڕەگی ڕابردوو</label>
-        <input id="pastStem" class="field" dir="rtl" value="نووسی" />
-      </div>
-    </div>
-    <div class="toggle-row">
-      <button class="toggle-btn active" id="btnTrans">گوزەرا (متعدی)</button>
-      <button class="toggle-btn" id="btnIntrans">ناگوزەرا (لازم)</button>
-    </div>
-    <button id="btnSaveVerb" class="field" style="margin-top:12px;background:var(--gold);color:#1B383F;font-family:'Vazirmatn',sans-serif;font-weight:700;border:none;cursor:pointer;">
-      + هەمیشە لە لیستەکەم زیادی بکە
-    </button>
-    <p id="saveMsg" style="font-size:12px;color:var(--gold);margin:8px 0 0;display:none;">زیاد کرا ✓ لە لیستی خواردەوە بگەڕێ</p>
-  </div>
+    <label>ڕەگی کار (خۆکار پڕ دەبێتەوە، بۆ کردارە ناڕێکەکان دەتوانیت بیگۆڕیت)</label>
+    <input id="presentStem" class="field" dir="rtl" value="نووس" style="margin-bottom:12px" />
 
-  <div class="card" id="myVerbsCard" style="display:none;">
-    <label>فعلە زیادکراوەکانی خۆم</label>
-    <div id="myVerbsList"></div>
+    <div class="toggle-row">
+      <button class="toggle-btn active" id="btnTrans">تێپەڕ</button>
+      <button class="toggle-btn" id="btnIntrans">تێنەپەڕ</button>
+    </div>
+
+    <button id="btnSaveVerb" class="actionbtn btn-save">زیادکردنی کردار</button>
+    <button id="btnDelVerb" class="actionbtn btn-del" style="display:none;">سڕینەوەی ئەم کردارە</button>
+    <p id="msg" class="msg"></p>
   </div>
 
   <div class="tabs" id="tabs"></div>
-  <p class="tsub" id="tsub"></p>
   <div id="rows"></div>
 
   <div class="kilim" style="margin-top:18px;margin-bottom:12px"></div>
   <p class="note">
-    تذکر: این ابزار بر پایه‌ی قواعد منظم صرف سورانی کار می‌کند. برای فعل‌های بی‌قاعده که در فهرست بالا نیستند،
-    ریشه‌ی حال و گذشته را دستی وارد کنید. شکل تصریفیِ گذرا در زمان گذشته، ساخت ارگتیو کردی را به‌صورت ساده‌شده روی
-    خود فعل نشان می‌دهد.
+    <b>ڕەگی کار چۆن دەردەکەوێت؟</b><br/>
+    کردار بکە بە فەرمانی کۆ بەم یاسایە: (بـ + ڕەگ + ن). پاشان (ب) و (ن) لابدە،
+    ئەوەی دەمێنێتەوە ڕەگی کارە. نموونە: <b>بردن</b> ← فەرمانی کۆ: <b>ببەن</b> ←
+    (ب) و (ن) لابدە ← دەمێنێتەوە <b>بە</b>، کە دەبێتە ڕەگی کار.
+    <br/><br/>
+    ئەپەکە ئێستا خۆی هەوڵ دەدات ڕەگی کار بە شێوەی خۆکار لەسەر بنەمای مەسدەر دەربهێنێت.
+    بەڵام هەندێک کردار ناڕێکن (وەک کردن، هاتن، وتن، دان، بردن، چوون) و ڕەگەکەیان
+    بە یاسای ڕێک ناچێتەوە — بۆ ئەوانە دەبێت خۆت ڕەگی کار ڕاست بکەیتەوە لە فیلدەکە.
+    <br/><br/>
+    ڕەگی ڕابردوو خۆکار دروست دەبێت (مەسدەر بەبێ دوا -ن).
+    <br/><br/>
+    <b>تێبینی:</b> هەر کردارێک لێرە زیاد بکەیت یان بگۆڕیت، تەنها لەسەر هەمان مۆبایلەکەت دەمێنێتەوە —
+    لەگەڵ مۆبایلی کەسانی تر هاوبەش نابێت، چونکە ئەم ئەپە سێرڤەرێکی هاوبەشی نییە.
   </p>
 </div>
 
@@ -122,80 +119,82 @@ const PRESENT_ENDINGS = ["م","یت","ێت","ین","ن","ن"];
 const PAST_INTRANS_ENDINGS = ["م","یت","","ین","ن","ن"];
 const PAST_TRANS_CLITICS = ["م","ت","ی","مان","تان","یان"];
 
-const VERB_LIST = [
-  {infinitive:"نووسین",presentStem:"نووس",pastStem:"نووسی",transitive:true,fa:"نوشتن"},
-  {infinitive:"خوێندن",presentStem:"خوێن",pastStem:"خوێند",transitive:true,fa:"خواندن"},
-  {infinitive:"کردن",presentStem:"کە",pastStem:"کرد",transitive:true,fa:"انجام‌دادن"},
-  {infinitive:"هاتن",presentStem:"هێ",pastStem:"هات",transitive:false,fa:"آمدن"},
-  {infinitive:"چوون",presentStem:"چۆ",pastStem:"چوو",transitive:false,fa:"رفتن"},
-  {infinitive:"خواردن",presentStem:"خۆ",pastStem:"خوارد",transitive:true,fa:"خوردن"},
-  {infinitive:"بینین",presentStem:"بین",pastStem:"بینی",transitive:true,fa:"دیدن"},
-  {infinitive:"وتن",presentStem:"ڵێ",pastStem:"وت",transitive:true,fa:"گفتن"},
-  {infinitive:"دان",presentStem:"دە",pastStem:"دا",transitive:true,fa:"دادن"},
-  {infinitive:"بردن",presentStem:"بە",pastStem:"برد",transitive:true,fa:"بردن"},
-  {infinitive:"کەوتن",presentStem:"کەو",pastStem:"کەوت",transitive:false,fa:"افتادن"},
-  {infinitive:"زانین",presentStem:"زان",pastStem:"زانی",transitive:true,fa:"دانستن"},
-  {infinitive:"خەوتن",presentStem:"خەو",pastStem:"خەوت",transitive:false,fa:"خوابیدن"},
-  {infinitive:"وەستان",presentStem:"وەست",pastStem:"وەستا",transitive:false,fa:"ایستادن"},
-  {infinitive:"مان",presentStem:"مێن",pastStem:"ما",transitive:false,fa:"ماندن"},
-  {infinitive:"ژیان",presentStem:"ژی",pastStem:"ژیا",transitive:false,fa:"زندگی‌کردن"},
-  {infinitive:"کوشتن",presentStem:"کوژ",pastStem:"کوشت",transitive:true,fa:"کشتن"},
-  {infinitive:"فرۆشتن",presentStem:"فرۆش",pastStem:"فرۆشت",transitive:true,fa:"فروختن"},
-  {infinitive:"کڕین",presentStem:"کڕ",pastStem:"کڕی",transitive:true,fa:"خریدن"},
-  {infinitive:"گەڕان",presentStem:"گەڕێ",pastStem:"گەڕا",transitive:false,fa:"گشتن/برگشتن"},
-  {infinitive:"ڕۆیشتن",presentStem:"ڕۆ",pastStem:"ڕۆیشت",transitive:false,fa:"رفتن (مترادف)"},
-  {infinitive:"هەڵسان",presentStem:"هەڵسێ",pastStem:"هەڵسا",transitive:false,fa:"برخاستن"},
-  {infinitive:"دانیشتن",presentStem:"دانیش",pastStem:"دانیشت",transitive:false,fa:"نشستن"},
-  {infinitive:"وەرگرتن",presentStem:"وەرگر",pastStem:"وەرگرت",transitive:true,fa:"دریافت‌کردن"},
-  {infinitive:"گەیشتن",presentStem:"گا",pastStem:"گەیشت",transitive:false,fa:"رسیدن"},
-  {infinitive:"برین",presentStem:"بڕ",pastStem:"بری",transitive:true,fa:"بریدن"},
-  {infinitive:"شکاندن",presentStem:"شکێن",pastStem:"شکاند",transitive:true,fa:"شکستن (چیزی)"},
-  {infinitive:"شکان",presentStem:"شکێ",pastStem:"شکا",transitive:false,fa:"شکستن (خودش)"},
-  {infinitive:"پرسین",presentStem:"پرس",pastStem:"پرسی",transitive:true,fa:"پرسیدن"},
-  {infinitive:"خۆشویستن",presentStem:"خۆشوێ",pastStem:"خۆشویست",transitive:true,fa:"دوست‌داشتن"},
-  {infinitive:"ترسان",presentStem:"ترس",pastStem:"ترسا",transitive:false,fa:"ترسیدن"},
-  {infinitive:"پێکەنین",presentStem:"پێکەن",pastStem:"پێکەنی",transitive:false,fa:"خندیدن"},
-  {infinitive:"گریان",presentStem:"گری",pastStem:"گریا",transitive:false,fa:"گریه‌کردن"},
-  {infinitive:"مردن",presentStem:"مر",pastStem:"مرد",transitive:false,fa:"مردن"},
-  {infinitive:"بوون",presentStem:"ب",pastStem:"بوو",transitive:false,fa:"بودن/شدن"},
-  {infinitive:"تێگەیشتن",presentStem:"تێگا",pastStem:"تێگەیشت",transitive:false,fa:"فهمیدن"},
-  {infinitive:"خستن",presentStem:"خە",pastStem:"خست",transitive:true,fa:"انداختن"},
-  {infinitive:"هێنان",presentStem:"هێن",pastStem:"هێنا",transitive:true,fa:"آوردن"},
-  {infinitive:"ڕاگرتن",presentStem:"ڕاگر",pastStem:"ڕاگرت",transitive:true,fa:"نگه‌داشتن"},
-  {infinitive:"سووتان",presentStem:"سووت",pastStem:"سووتا",transitive:false,fa:"سوختن (خودش)"},
-  {infinitive:"سووتاندن",presentStem:"سووتێن",pastStem:"سووتاند",transitive:true,fa:"سوزاندن"},
-  {infinitive:"شۆردن",presentStem:"شۆ",pastStem:"شۆرد",transitive:true,fa:"شستن"},
-  {infinitive:"وەستاندن",presentStem:"وەستێن",pastStem:"وەستاند",transitive:true,fa:"متوقف‌کردن"},
-  {infinitive:"ڕاکردن",presentStem:"ڕاکە",pastStem:"ڕاکرد",transitive:false,fa:"فرار کردن"},
-  {infinitive:"بەخشین",presentStem:"بەخش",pastStem:"بەخشی",transitive:true,fa:"بخشیدن"},
-  {infinitive:"لێدان",presentStem:"لێدە",pastStem:"لێدا",transitive:true,fa:"زدن"},
-  {infinitive:"گرتن",presentStem:"گر",pastStem:"گرت",transitive:true,fa:"گرفتن"},
-  {infinitive:"تێپەڕین",presentStem:"تێپەڕ",pastStem:"تێپەڕی",transitive:false,fa:"گذشتن (از جایی)"},
+const SEED_VERBS = [
+  {infinitive:"نووسین",presentStem:"نووس",transitive:true},
+  {infinitive:"خوێندن",presentStem:"خوێن",transitive:true},
+  {infinitive:"کردن",presentStem:"کە",transitive:true},
+  {infinitive:"هاتن",presentStem:"هێ",transitive:false},
+  {infinitive:"چوون",presentStem:"چۆ",transitive:false},
+  {infinitive:"خواردن",presentStem:"خۆ",transitive:true},
+  {infinitive:"بینین",presentStem:"بین",transitive:true},
+  {infinitive:"وتن",presentStem:"ڵێ",transitive:true},
+  {infinitive:"دان",presentStem:"دە",transitive:true},
+  {infinitive:"بردن",presentStem:"بە",transitive:true},
+  {infinitive:"کەوتن",presentStem:"کەو",transitive:false},
+  {infinitive:"زانین",presentStem:"زان",transitive:true},
+  {infinitive:"خەوتن",presentStem:"خەو",transitive:false},
+  {infinitive:"وەستان",presentStem:"وەست",transitive:false},
+  {infinitive:"مان",presentStem:"مێن",transitive:false},
+  {infinitive:"ژیان",presentStem:"ژی",transitive:false},
+  {infinitive:"کوشتن",presentStem:"کوژ",transitive:true},
+  {infinitive:"فرۆشتن",presentStem:"فرۆش",transitive:true},
+  {infinitive:"کڕین",presentStem:"کڕ",transitive:true},
+  {infinitive:"گەڕان",presentStem:"گەڕێ",transitive:false},
+  {infinitive:"ڕۆیشتن",presentStem:"ڕۆ",transitive:false},
+  {infinitive:"هەڵسان",presentStem:"هەڵسێ",transitive:false},
+  {infinitive:"دانیشتن",presentStem:"دانیش",transitive:false},
+  {infinitive:"وەرگرتن",presentStem:"وەرگر",transitive:true},
+  {infinitive:"گەیشتن",presentStem:"گا",transitive:false},
+  {infinitive:"برین",presentStem:"بڕ",transitive:true},
+  {infinitive:"شکاندن",presentStem:"شکێن",transitive:true},
+  {infinitive:"شکان",presentStem:"شکێ",transitive:false},
+  {infinitive:"پرسین",presentStem:"پرس",transitive:true},
+  {infinitive:"خۆشویستن",presentStem:"خۆشوێ",transitive:true},
+  {infinitive:"ترسان",presentStem:"ترس",transitive:false},
+  {infinitive:"پێکەنین",presentStem:"پێکەن",transitive:false},
+  {infinitive:"گریان",presentStem:"گری",transitive:false},
+  {infinitive:"مردن",presentStem:"مر",transitive:false},
+  {infinitive:"بوون",presentStem:"ب",transitive:false},
+  {infinitive:"تێگەیشتن",presentStem:"تێگا",transitive:false},
+  {infinitive:"خستن",presentStem:"خە",transitive:true},
+  {infinitive:"هێنان",presentStem:"هێن",transitive:true},
+  {infinitive:"ڕاگرتن",presentStem:"ڕاگر",transitive:true},
+  {infinitive:"سووتان",presentStem:"سووت",transitive:false},
+  {infinitive:"سووتاندن",presentStem:"سووتێن",transitive:true},
+  {infinitive:"شۆردن",presentStem:"شۆ",transitive:true},
+  {infinitive:"وەستاندن",presentStem:"وەستێن",transitive:true},
+  {infinitive:"ڕاکردن",presentStem:"ڕاکە",transitive:false},
+  {infinitive:"بەخشین",presentStem:"بەخش",transitive:true},
+  {infinitive:"لێدان",presentStem:"لێدە",transitive:true},
+  {infinitive:"گرتن",presentStem:"گر",transitive:true},
+  {infinitive:"تێپەڕین",presentStem:"تێپەڕ",transitive:false},
 ];
 
 const TABS = [
-  {id:"present",label:"ئێستا / ئایندە",sub:"زمانی حال / آینده"},
-  {id:"pastSimple",label:"ڕابردووی سادە",sub:"ماضی ساده"},
-  {id:"pastCont",label:"ڕابردووی بەردەوام",sub:"ماضی استمراری"},
-  {id:"subj",label:"ئارەزوومەندی",sub:"التزامی / ساختاری با «بی-»"},
-  {id:"imperative",label:"فەرمانی",sub:"امری"},
+  {id:"present",label:"ئێستا / داهاتوو"},
+  {id:"pastSimple",label:"ڕابردووی سادە"},
+  {id:"pastCont",label:"ڕابردووی بەردەوام"},
+  {id:"subj",label:"ئارەزوومەندی"},
+  {id:"imperative",label:"فەرمانی"},
 ];
 
-let state = { transitive:true, tab:"present", touched:false };
+let state = { transitive:true, tab:"present", editingIndex:-1 };
+let stemTouched = false;
 
-const STORAGE_KEY = "kurdishConjugator.myVerbs";
+const STORAGE_KEY = "kurdishConjugator.verbs";
 
-function loadMyVerbs(){
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
-  catch(e){ return []; }
+function loadVerbs(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  } catch(e){}
+  saveVerbs(SEED_VERBS);
+  return JSON.parse(JSON.stringify(SEED_VERBS));
 }
-function saveMyVerbs(list){
+function saveVerbs(list){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 }
-let myVerbs = loadMyVerbs();
-
-function allVerbs(){ return VERB_LIST.concat(myVerbs); }
-
+let verbs = loadVerbs();
 
 function buildForms(prefix, stem, endings){ return endings.map(e => prefix+stem+e); }
 
@@ -205,12 +204,16 @@ function conjugate(presentStem, pastStem, transitive){
     present:{pos:buildForms("دە",presentStem,PRESENT_ENDINGS), neg:buildForms("نا",presentStem,PRESENT_ENDINGS), full:true},
     pastSimple:{pos:buildForms("",pastStem,pastEndings), neg:buildForms("نە",pastStem,pastEndings), full:true},
     pastCont:{pos:buildForms("دە",pastStem,pastEndings), neg:buildForms("نە",pastStem,pastEndings), full:true},
-    subj:{pos:buildForms("بـ",presentStem,PRESENT_ENDINGS), neg:buildForms("نە",presentStem,PRESENT_ENDINGS), full:true},
-    imperative:{pos:[`بـ${presentStem}ە`,`بـ${presentStem}ن`], neg:[`مە${presentStem}ە`,`مە${presentStem}ن`], full:false},
+    subj:{pos:buildForms("ب",presentStem,PRESENT_ENDINGS), neg:buildForms("نە",presentStem,PRESENT_ENDINGS), full:true},
+    imperative:{pos:[`ب${presentStem}ه`,`ب${presentStem}ن`], neg:[`مە${presentStem}ه`,`مە${presentStem}ن`], full:false},
   };
 }
 
-function guessPastStem(inf){ if(!inf) return ""; return inf.endsWith("ن") ? inf.slice(0,-1) : inf; }
+function derivePastStem(inf){
+  if(!inf) return "";
+  return inf.endsWith("ن") ? inf.slice(0,-1) : inf;
+}
+
 function guessPresentStem(inf){
   if(!inf) return "";
   if(inf.endsWith("ین")) return inf.slice(0,-2);
@@ -220,14 +223,14 @@ function guessPresentStem(inf){
 
 const $ = id => document.getElementById(id);
 
+function currentInfinitive(){ return $("infinitive").value.trim(); }
+function currentPresentStem(){ return $("presentStem").value.trim(); }
+
 function render(){
-  const presentStem = $("presentStem").value;
-  const pastStem = $("pastStem").value;
+  const presentStem = currentPresentStem();
+  const pastStem = derivePastStem(currentInfinitive());
   const tenses = conjugate(presentStem, pastStem, state.transitive);
   const active = tenses[state.tab];
-  const meta = TABS.find(t=>t.id===state.tab);
-
-  $("tsub").textContent = meta.sub;
 
   const rows = active.full ? PERSONS : IMP_PERSONS;
   $("rows").innerHTML = rows.map((p,i)=>`
@@ -253,52 +256,28 @@ function renderTabs(){
 
 function renderVerbPicker(){
   const picker = $("verbPicker");
-  picker.innerHTML = `<option value="">— هرکدام را انتخاب کنید —</option>`;
-  const builtinGroup = document.createElement("optgroup");
-  builtinGroup.label = "فعلە بنەڕەتییەکان";
-  builtinGroup.innerHTML = VERB_LIST.map(v=>`<option value="${v.infinitive}">${v.infinitive} — ${v.fa}</option>`).join("");
-  picker.appendChild(builtinGroup);
-
-  if(myVerbs.length){
-    const myGroup = document.createElement("optgroup");
-    myGroup.label = "فعلە زیادکراوەکانی من";
-    myGroup.innerHTML = myVerbs.map(v=>`<option value="${v.infinitive}">${v.infinitive}${v.fa ? " — "+v.fa : ""}</option>`).join("");
-    picker.appendChild(myGroup);
-  }
-
+  picker.innerHTML = `<option value="">— کردارێک هەڵبژێرە —</option>` +
+    verbs.map((v,i)=>`<option value="${i}">${v.infinitive}</option>`).join("");
+  picker.value = state.editingIndex >= 0 ? String(state.editingIndex) : "";
   picker.onchange = (e)=>{
-    const verb = allVerbs().find(v=>v.infinitive===e.target.value);
+    if(e.target.value === ""){
+      state.editingIndex = -1;
+      stemTouched = false;
+      updateActionButtons();
+      return;
+    }
+    const i = parseInt(e.target.value, 10);
+    const verb = verbs[i];
     if(!verb) return;
     $("infinitive").value = verb.infinitive;
     $("presentStem").value = verb.presentStem;
-    $("pastStem").value = verb.pastStem;
     state.transitive = verb.transitive;
-    state.touched = true;
+    state.editingIndex = i;
+    stemTouched = false;
     updateToggleButtons();
+    updateActionButtons();
     render();
   };
-}
-
-function renderMyVerbsList(){
-  const card = $("myVerbsCard");
-  const list = $("myVerbsList");
-  if(!myVerbs.length){ card.style.display = "none"; return; }
-  card.style.display = "block";
-  list.innerHTML = myVerbs.map((v,i)=>`
-    <div class="myverb-row">
-      <span class="myverb-name">${v.infinitive}${v.fa ? " — "+v.fa : ""}</span>
-      <button class="myverb-del" data-i="${i}">سڕینەوە</button>
-    </div>
-  `).join("");
-  list.querySelectorAll(".myverb-del").forEach(btn=>{
-    btn.onclick = ()=>{
-      const i = parseInt(btn.dataset.i, 10);
-      myVerbs.splice(i, 1);
-      saveMyVerbs(myVerbs);
-      renderVerbPicker();
-      renderMyVerbsList();
-    };
-  });
 }
 
 function updateToggleButtons(){
@@ -306,43 +285,73 @@ function updateToggleButtons(){
   $("btnIntrans").classList.toggle("active", !state.transitive);
 }
 
+function updateActionButtons(){
+  const editing = state.editingIndex >= 0;
+  $("btnSaveVerb").textContent = editing ? "نوێکردنەوەی کردار" : "زیادکردنی کردار";
+  $("btnDelVerb").style.display = editing ? "block" : "none";
+}
+
+function showMsg(text){
+  const m = $("msg");
+  m.textContent = text;
+  m.style.display = "block";
+  setTimeout(()=>{ m.style.display="none"; }, 2200);
+}
+
 $("infinitive").addEventListener("input", (e)=>{
-  if(!state.touched){
-    $("presentStem").value = guessPresentStem(e.target.value);
-    $("pastStem").value = guessPastStem(e.target.value);
+  if(!stemTouched){
+    $("presentStem").value = guessPresentStem(e.target.value.trim());
   }
   render();
 });
-$("presentStem").addEventListener("input", ()=>{ state.touched=true; render(); });
-$("pastStem").addEventListener("input", ()=>{ state.touched=true; render(); });
+$("presentStem").addEventListener("input", ()=>{ stemTouched = true; render(); });
 $("btnTrans").addEventListener("click", ()=>{ state.transitive=true; updateToggleButtons(); render(); });
 $("btnIntrans").addEventListener("click", ()=>{ state.transitive=false; updateToggleButtons(); render(); });
 
 $("btnSaveVerb").addEventListener("click", ()=>{
-  const infinitive = $("infinitive").value.trim();
-  const presentStem = $("presentStem").value.trim();
-  const pastStem = $("pastStem").value.trim();
-  if(!infinitive || !presentStem || !pastStem){ return; }
-  const exists = allVerbs().some(v=>v.infinitive===infinitive);
-  if(exists){
-    const msg = $("saveMsg");
-    msg.textContent = "ئەم فعلە پێشتر لە لیستدایە";
-    msg.style.display = "block";
-    setTimeout(()=>{ msg.style.display="none"; }, 2500);
+  const infinitive = currentInfinitive();
+  const presentStem = currentPresentStem();
+  if(!infinitive || !presentStem) return;
+
+  if(state.editingIndex >= 0){
+    verbs[state.editingIndex] = { infinitive, presentStem, transitive: state.transitive };
+    saveVerbs(verbs);
+    renderVerbPicker();
+    showMsg("نوێ کرایەوە ✓");
     return;
   }
-  myVerbs.push({ infinitive, presentStem, pastStem, transitive: state.transitive, fa: "" });
-  saveMyVerbs(myVerbs);
+
+  const dupIndex = verbs.findIndex(v=>v.infinitive===infinitive);
+  if(dupIndex >= 0){
+    verbs[dupIndex] = { infinitive, presentStem, transitive: state.transitive };
+    state.editingIndex = dupIndex;
+    saveVerbs(verbs);
+    renderVerbPicker();
+    updateActionButtons();
+    showMsg("ئەم کردارە پێشتر هەبوو، نوێ کرایەوە ✓");
+    return;
+  }
+
+  verbs.push({ infinitive, presentStem, transitive: state.transitive });
+  state.editingIndex = verbs.length - 1;
+  saveVerbs(verbs);
   renderVerbPicker();
-  renderMyVerbsList();
-  const msg = $("saveMsg");
-  msg.textContent = "زیاد کرا ✓ لە لیستی خواردەوە بگەڕێ";
-  msg.style.display = "block";
-  setTimeout(()=>{ msg.style.display="none"; }, 2500);
+  updateActionButtons();
+  showMsg("زیاد کرا ✓");
+});
+
+$("btnDelVerb").addEventListener("click", ()=>{
+  if(state.editingIndex < 0) return;
+  verbs.splice(state.editingIndex, 1);
+  state.editingIndex = -1;
+  saveVerbs(verbs);
+  renderVerbPicker();
+  updateActionButtons();
+  showMsg("سڕایەوە ✓");
 });
 
 renderVerbPicker();
-renderMyVerbsList();
+updateActionButtons();
 renderTabs();
 render();
 
